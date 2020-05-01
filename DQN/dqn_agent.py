@@ -2,7 +2,7 @@ import numpy as np
 import random
 from collections import namedtuple, deque
 
-from DQN import DQN
+from dqn.dqn_model import DQN
 
 import torch
 import torch.nn.functional as F
@@ -10,14 +10,15 @@ import torch.optim as optim
 
 REPLAY_BUFFER_SIZE = int(1e5)
 MINIBATCH_SIZE = 64
-GAMMA = 0.9                     # discount factor
-TAU = 1e-3                       # for soft update of target parameters
+GAMMA = 0.9  # discount factor
+TAU = 1e-3  # for soft update of target parameters
 LR = 5e-4
 UPDATE_EVERY = 4
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-class DQNAgent():
+
+class DQNAgent:
     """Interacts with and learns from the environment."""
 
     def __init__(self, state_size, action_size, seed):
@@ -43,7 +44,7 @@ class DQNAgent():
 
         # Initialize time step (for updating every UPDATE_EVERY steps)
         self.t_step = 0
-    
+
     def step(self, state, action, reward, next_state, done):
         # Save experience in replay memory
         self.memory.add(state, action, reward, next_state, done)
@@ -54,7 +55,7 @@ class DQNAgent():
             # If enough samples are available in memory, get random subset and learn
             if len(self.memory) > MINIBATCH_SIZE:
                 experiences = self.memory.sample()
-                self.learn(experiences, GAMMA) 
+                self.learn(experiences, GAMMA)
 
     def act(self, state, eps=0.):
         """Returns actions for given state as per current policy.
@@ -88,10 +89,10 @@ class DQNAgent():
 
         # Get max predicted Q values (for next states) from target model
         Q_targets_next = self.dqn_target(next_states).detach().max(1)[0].unsqueeze(1)
-        
+
         # Compute Q targets for current states 
-        Q_targets = rewards + (gamma * Q_targets_next * (1-dones))
-        
+        Q_targets = rewards + (gamma * Q_targets_next * (1 - dones))
+
         # Get expected Q values from local model
         Q_expected = self.dqn_local(states).gather(1, actions)
 
@@ -117,7 +118,7 @@ class DQNAgent():
             tau (float): interpolation parameter 
         """
         for target_params, local_params in zip(target_model.parameters(), local_model.parameters()):
-            target_params.data.copy_(tau*local_params.data + (1-tau)*target_params.data)
+            target_params.data.copy_(tau * local_params.data + (1 - tau) * target_params.data)
 
 
 class RelayBuffer():
@@ -151,8 +152,10 @@ class RelayBuffer():
         states = torch.from_numpy(np.vstack([e.state for e in experiences if e is not None])).float().to(device)
         actions = torch.from_numpy(np.vstack([e.action for e in experiences if e is not None])).long().to(device)
         rewards = torch.from_numpy(np.vstack([e.reward for e in experiences if e is not None])).float().to(device)
-        next_states = torch.from_numpy(np.vstack([e.next_state for e in experiences if e is not None])).float().to(device)
-        dones = torch.from_numpy(np.vstack([e.done for e in experiences if e is not None])).astype(np.uint8).float().to(device)
+        next_states = torch.from_numpy(np.vstack([e.next_state for e in experiences if e is not None])).float().to(
+            device)
+        dones = torch.from_numpy(np.vstack([e.done for e in experiences if e is not None])).astype(np.uint8).float().to(
+            device)
 
         return (states, actions, rewards, next_states, dones)
 
