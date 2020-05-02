@@ -11,7 +11,7 @@ from torchsummary import summary
 
 REPLAY_BUFFER_SIZE = int(1e5)
 MINIBATCH_SIZE = 64
-GAMMA = 0.9  # discount factor
+GAMMA = 0.99  # discount factor
 TAU = 1e-3  # for soft update of target parameters
 LR = 5e-4
 UPDATE_EVERY = 4
@@ -111,7 +111,7 @@ class DQNAgent:
         # ------------------- update target network ------------------- #
         self.soft_update(self.dqn_local, self.dqn_target, TAU)
 
-    def soft_update(self, local_model, target_mode, tau):
+    def soft_update(self, local_model, target_model, tau):
         """Soft update model parameters.
         θ_target = τ*θ_local + (1 - τ)*θ_target
 
@@ -125,7 +125,7 @@ class DQNAgent:
             target_params.data.copy_(tau * local_params.data + (1 - tau) * target_params.data)
 
 
-class RelayBuffer():
+class ReplayBuffer():
     """Fixed-size buffer to store experience tuples."""
 
     def __init__(self, action_size, replay_buffer_size, minibatch_size, seed):
