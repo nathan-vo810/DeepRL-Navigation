@@ -7,6 +7,7 @@ from dqn.dqn_model import DQN
 import torch
 import torch.nn.functional as F
 import torch.optim as optim
+from torchsummary import summary
 
 REPLAY_BUFFER_SIZE = int(1e5)
 MINIBATCH_SIZE = 64
@@ -37,6 +38,9 @@ class DQNAgent:
         # DQN
         self.dqn_local = DQN(state_size, action_size, seed).to(device)
         self.dqn_target = DQN(state_size, action_size, seed).to(device)
+        summary(self.dqn_local, (state_size, ))
+        print(summary)
+
         self.optimizer = optim.Adam(self.dqn_local.parameters(), lr=LR)
 
         # Replay memory
@@ -154,7 +158,7 @@ class RelayBuffer():
         rewards = torch.from_numpy(np.vstack([e.reward for e in experiences if e is not None])).float().to(device)
         next_states = torch.from_numpy(np.vstack([e.next_state for e in experiences if e is not None])).float().to(
             device)
-        dones = torch.from_numpy(np.vstack([e.done for e in experiences if e is not None])).astype(np.uint8).float().to(
+        dones = torch.from_numpy(np.vstack([e.done for e in experiences if e is not None]).astype(np.uint8)).float().to(
             device)
 
         return (states, actions, rewards, next_states, dones)
