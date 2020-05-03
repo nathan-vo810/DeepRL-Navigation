@@ -7,7 +7,6 @@ from dqn.dqn_model import DQN
 import torch
 import torch.nn.functional as F
 import torch.optim as optim
-from torchsummary import summary
 
 REPLAY_BUFFER_SIZE = int(1e5)
 MINIBATCH_SIZE = 64
@@ -38,9 +37,6 @@ class DQNAgent:
         # DQN
         self.dqn_local = DQN(state_size, action_size, seed).to(device)
         self.dqn_target = DQN(state_size, action_size, seed).to(device)
-        summary(self.dqn_local, (state_size, ))
-        print(summary)
-
         self.optimizer = optim.Adam(self.dqn_local.parameters(), lr=LR)
 
         # Replay memory
@@ -125,7 +121,7 @@ class DQNAgent:
             target_params.data.copy_(tau * local_params.data + (1 - tau) * target_params.data)
 
 
-class ReplayBuffer():
+class ReplayBuffer:
     """Fixed-size buffer to store experience tuples."""
 
     def __init__(self, action_size, replay_buffer_size, minibatch_size, seed):
