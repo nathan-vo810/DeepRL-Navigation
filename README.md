@@ -14,8 +14,7 @@ The trained agent in this project is a Deep Q-Network (DQN) based agent.
 
 ### The environment
 
-The environment chosen for the project is similar but not identical to the version of the [Banana 
-Collector Environment](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#banana-collector) from the Unity ML-Agents toolkit.
+The environment chosen for the project is similar but not identical to the version of the [Banana Collector Environment](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#banana-collector) from the Unity ML-Agents toolkit.
 
 * A reward of +1 is provided for collecting a yellow banana and a reward of -1 is provided for collecting a blue banana. Thus, the goal of your agent is to collect as many yellow bananas as possible while avoiding blue bananas. Note that whenever the agent collects a banana, a new banana is spawn at a random place in the planar environment.
 
