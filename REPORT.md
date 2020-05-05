@@ -167,7 +167,7 @@ The hyperparameters are self-described.
 
 The training process is implemented in the Navigation.ipynb notebook. The algorithm follows the process described in the [Deep Reinforement Learning Nanodegree](https://www.udacity.com/course/deep-reinforcement-learning-nanodegree--nd893).
 
-![DQN-Algorithm](./DQN.png)
+![DQN-Algorithm](./images/DQN.png)
 
 ```python
 def train_dqn(n_episodes=2000, max_t=1000, eps_start=1.0, eps_end=0.01, eps_decay=0.995):
@@ -222,7 +222,7 @@ This section presents the result of training and testing our DQN agent.
 
 #### Training scores
 
-![training_result](./result.png)
+![training_result](./images/result.png)
 
 ## 4. Future works
 
