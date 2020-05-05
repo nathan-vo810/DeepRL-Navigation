@@ -7,7 +7,7 @@
 
 This project aims to train an agent to walk in a virtual environment (Banana Unity environment) and collect as many yellow bananas as possible while avoiding purple ones.
 
-The trained agent in this project is a Deep Q-Network (DQN) based agent.
+The trained agent in this project is a Deep Q-Networks (DQN) based agent.
 
 ![Trained Agent][image1]
 
@@ -16,14 +16,14 @@ This report consists of the following sections:
 * [1. Environment](#1-environment)
     
 * [2. Implementation](#2-implementation)
-    * [2.1 Deep Q-Networks (DQN) model](#21-deep-q-networks-(dqn)-model)
-    * [2.2 Experience replay](#22-hyperparameters)
+    * [2.1 Deep Q-Networks model](#21-deep-q-networks-model)
+    * [2.2 Experience replay](#22-experience-replay)
     * [2.3 DQN Agent](#23-dqn-agent)
     * [2.4 Training](#24-training)
 
 * [3. Results](#3-results)
 
-* [4. Future work](#4-future-work)
+* [4. Future work](#4-future-works)
 
 
 ## 1. Environment
@@ -45,7 +45,7 @@ Readers are recommended to read the Deep Q-learning algorithm [1] paper before d
 ## 2. Implementation
 ### 2.1  Deep Q-Networks (DQN) model
 
-DQN is a neural network consists of 2 fully-connected layers, and 1 output layer. The network can be described as follow:
+DQN is implemented as a neural network consisting of 1 input layer, 2 fully-connected hidden layers, and 1 output layer. The network can be described as follow:
 * Input layer: 37 neurons (the state size)
 * Fully-connected layer 1: 64 neurons, activation = ReLU
 * Fully-connected layer 2: 64 neurons, activation = ReLU
@@ -222,9 +222,7 @@ This section presents the result of training and testing our DQN agent.
 
 #### Training scores
 
-As we can see, the environment is solved in 700 episodes with average score of 13. The training process is visualized as follow:
-
-![Training score][img_training_result]
+![Training score][result.png]
 
 ## 4. Future works
 
