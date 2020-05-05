@@ -43,7 +43,7 @@ The environment chosen for the project is similar but not identical to the versi
 Readers are recommended to read the Deep Q-learning algorithm [1] paper before diving into the project, it presents the theoretical foundations of the models, update rules, tweaks such as experience replay, target networks, soft updates, etc.
 
 ## 2. Implementation
-### 2.1  Deep Q-Networks model
+### 2.1 Deep Q-Networks model
 
 DQN is implemented as a neural network consisting of 1 input layer, 2 fully-connected hidden layers, and 1 output layer. The network can be described as follow:
 * Input layer: 37 neurons (the state size)
@@ -222,7 +222,7 @@ This section presents the result of training and testing our DQN agent.
 
 #### Training scores
 
-![Training score][./result.png]
+![training_result](./result.png)
 
 ## 4. Future works
 
